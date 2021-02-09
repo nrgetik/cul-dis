@@ -91,6 +91,9 @@ CREATE TABLE objects (
     object_subregion TEXT,
     object_primary_image TEXT,
     object_addtl_images TEXT,
-    image_selected_date TEXT
+    pri_image_width_pixels INT,
+    pri_image_height_pixels INT,
+    pri_image_select_weight INT DEFAULT 1,
+    pri_image_last_selected_dt TEXT
 );
 EOF
