@@ -28,7 +28,11 @@ def main():
         if counter == 1:
             artworks_page = f"{ARTSY_API}/artworks"
         else:
-            artworks_page = json_obj["_links"]["next"]["href"]
+            try:
+                artworks_page = json_obj["_links"]["next"]["href"]
+            except KeyError:
+                moar_pages = False
+                break
         try:
             print(artworks_page)
             res = req_artsy_artworks(artworks_page)
@@ -38,8 +42,6 @@ def main():
         json_obj = json.loads(res.text)
         artworks.store(json_obj["_embedded"]["artworks"])
         counter += 1
-        if not json_obj["_links"]["next"]["href"]:
-            moar_pages = False
 
 if __name__ == "__main__":
     main()
