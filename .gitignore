@@ -2,5 +2,6 @@
 .envrc
 __pycache__
 moon-tree-owl
+the-met
 *.db
 *.json
