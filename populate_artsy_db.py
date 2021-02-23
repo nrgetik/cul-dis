@@ -11,7 +11,7 @@ ARTSY_API = "https://api.artsy.net/api"
 ARTSY_HEADERS = {
     "X-Xapp-Token": getenv("ARTSY_TOKEN")
 }
-DB = UnQLite("./artsy.db")
+DB = UnQLite("./artsy-new.db")
 
 @sleep_and_retry
 @limits(calls=50, period=10)
