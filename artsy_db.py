@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
+import os.path
 from unqlite import UnQLite
 
-DB = UnQLite("./artsy.db")
+DB = UnQLite(f"{os.path.dirname(os.path.realpath(__file__))}/artsy.db")
 
 CATEGORIES_WANTED = [
     "Drawing, Collage or other Work on Paper",

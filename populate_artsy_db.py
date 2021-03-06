@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import json
+import os.path
 from datetime import datetime
 from os import getenv
 from ratelimit import limits, sleep_and_retry
@@ -11,7 +12,7 @@ ARTSY_API = "https://api.artsy.net/api"
 ARTSY_HEADERS = {
     "X-Xapp-Token": getenv("ARTSY_TOKEN")
 }
-DB = UnQLite("./artsy-new.db")
+DB = UnQLite(f"{os.path.dirname(os.path.realpath(__file__))}/artsy-new.db")
 
 @sleep_and_retry
 @limits(calls=50, period=10)
