@@ -2,7 +2,6 @@
 .envrc
 __pycache__
 data
-moon-tree-owl
 static
 TODO.md
 *.db
