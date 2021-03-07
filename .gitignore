@@ -3,6 +3,7 @@
 __pycache__
 data
 TODO.md
+*.bak
 *.db
 *.dict
 *.json
