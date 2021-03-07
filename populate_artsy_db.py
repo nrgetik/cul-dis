@@ -2,7 +2,7 @@
 
 # TODO: Build in support for updating an already-existing DB:
 #       * Add new artworks
-#       * Handle missing medium
+#       * Handle missing category
 
 # NOTE: 27577 records stored as of 03/07/2021
 
