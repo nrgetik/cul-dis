@@ -17,11 +17,11 @@ def dispense_culture(path):
     artwerk = next(werk for werk in ARTWORKS if werk["__id"] == werk_id)
     return render_template("index.html",
         ART_ID=artwerk["__id"],
-        ART_TITLE=artwerk["title"],
-        ART_CIRCA=artwerk["date"],
-        ART_MEDIUM=artwerk["medium"],
-        ART_HELD=artwerk["collecting_institution"],
-        ART_ICON=artwerk["iconicity"])
+        ART_TITLE=artwerk["title"] if artwerk["title"] else None,
+        ART_CIRCA=artwerk["date"] if artwerk["date"] else None,
+        ART_MEDIUM=artwerk["medium"] if artwerk["medium"] else None,
+        ART_HELD=artwerk["collecting_institution"] if artwerk["collecting_institution"] else None,
+        ART_ICON=artwerk["iconicity"] if artwerk["iconicity"] else None)
 
 def main():
     app.run()

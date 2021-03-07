@@ -32,11 +32,13 @@
 <body>
 
   <!-- Add your site or application content here -->
-  <p>{{ ART_TITLE }}</p>
-  <p>{{ ART_CIRCA }}</p>
-  <p>{{ ART_MEDIUM }}</p>
-  <p>{{ ART_HELD }}</p>
-  <p>{{ ART_ICON }}</p>
+  <div id="bottomright">
+    {% if ART_TITLE %}{{ ART_TITLE }}<br />{% endif %}
+    {% if ART_CIRCA %}{{ ART_CIRCA }}<br />{% endif %}
+    {% if ART_MEDIUM %}{{ ART_MEDIUM }}<br />{% endif %}
+    {% if ART_HELD %}{{ ART_HELD }}<br />{% endif %}
+    {% if ART_ICON %}{{ ART_ICON }}{% endif %}
+  </div>
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
