@@ -1,6 +1,6 @@
 import random
 from flask import Flask
-from flask import send_file
+from flask import render_template
 import artsy_db
 
 app = Flask(__name__)
@@ -8,9 +8,11 @@ app = Flask(__name__)
 ARTWORKS = artsy_db.get_artworks()
 ART_IDS = [artwork["__id"] for artwork in ARTWORKS]
 
-@app.route("/")
-def dispense_culture():
-    return send_file(filename_or_fp=f"static/images/{random.choice(ART_IDS)}_optimized.jpg")
+# Catch all paths with these route rules
+@app.route("/", defaults={"path": ""}, strict_slashes=False)
+@app.route("/<path:path>", strict_slashes=False)
+def dispense_culture(path):
+    return render_template("index.html", ART_ID=random.choice(ART_IDS))
 
 def main():
     app.run()
