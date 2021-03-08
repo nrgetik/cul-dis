@@ -33,8 +33,9 @@
 
   <!-- Add your site or application content here -->
   <div id="bottomright">
-    {% if ART_TITLE %}{{ ART_TITLE }}<br />{% endif %}
-    {% if ART_CIRCA %}{{ ART_CIRCA }}<br />{% endif %}
+    {% if ART_ARTIST %}{{ ART_ARTIST }}<br />{% endif %}
+    {% if ART_TITLE %}{{ ART_TITLE }}{% endif %}
+    {% if ART_CIRCA %}, {{ ART_CIRCA }}{% endif %}<br />
     {% if ART_MEDIUM %}{{ ART_MEDIUM }}<br />{% endif %}
     {% if ART_HELD %}{{ ART_HELD }}<br />{% endif %}
     {% if ART_ICON %}{{ ART_ICON }}{% endif %}

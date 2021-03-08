@@ -17,6 +17,7 @@ def dispense_culture(path):
     artwerk = next(werk for werk in ARTWORKS if werk["__id"] == werk_id)
     return render_template("index.html",
         ART_ID=artwerk["__id"],
+        ART_ARTIST=artwerk["artists"][0] if artwerk["artists"] else None,
         ART_TITLE=artwerk["title"] if artwerk["title"] else None,
         ART_CIRCA=artwerk["date"] if artwerk["date"] else None,
         ART_MEDIUM=artwerk["medium"] if artwerk["medium"] else None,
