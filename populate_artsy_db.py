@@ -10,6 +10,7 @@ import json
 import os.path
 from datetime import datetime
 from os import getenv
+from time import sleep
 from ratelimit import limits, sleep_and_retry
 import requests
 from unqlite import UnQLite
@@ -21,9 +22,8 @@ ARTSY_HEADERS = {
 DB = UnQLite(f"{os.path.dirname(os.path.realpath(__file__))}/artsy.db")
 
 # Artsy API rate limit says 5 requests per second
-# In practice, this seems to be lower
 @sleep_and_retry
-@limits(calls=10, period=5)
+@limits(calls=25, period=5)
 def artsy_request(url):
     return requests.get(url, headers=ARTSY_HEADERS)
 
@@ -58,23 +58,28 @@ def add_artists():
     artworks = DB.collection("artworks")
     record = 0
     for artwork in artworks:
-        if "artists" not in artwork:
+        if "_links" in artwork and "artists" not in artwork:
             try:
-                print(artwork["_links"]["artists"]["href"])
-                res = artsy_request(artwork["_links"]["artists"]["href"])
+                while True:
+                    print(artwork["_links"]["artists"]["href"])
+                    res = artsy_request(artwork["_links"]["artists"]["href"])
+                    if res.status_code != 200 or "Retry later" in res.text:
+                        print("Previous API call failed, sleeping for 75 seconds")
+                        sleep(75)
+                    else:
+                        break
             except requests.exceptions.RequestException as err:
                 print(f"[{datetime.now()}] {err}")
                 break
-            try:
-                artists_dict = json.loads(res.text)
-            except json.decoder.JSONDecodeError:
-                print(res.text)
-                break
-            artwork["artists"] = []
-            for artist in artists_dict["_embedded"]["artists"]:
-                artwork["artists"].append(artist["name"])
+            artists_dict = json.loads(res.text)
+            if artists_dict["_embedded"]["artists"]:
+                artwork["artists"] = []
+                for artist in artists_dict["_embedded"]["artists"]:
+                    artwork["artists"].append(artist["name"])
+            else:
+                artwork["artists"] = None
             artworks.update(record, artwork)
-            record += 1
+        record += 1
 
 if __name__ == "__main__":
     create_populate()
